@@ -11,6 +11,6 @@ type ErrorController struct {
 
 //Get возвращает кастомную ошибку
 func (c *ErrorController) Get() {
-	c.TplName = "error.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "error.html"
+	c.Layout = "layout.html"
 }

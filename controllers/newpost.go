@@ -11,6 +11,6 @@ type NewPostController struct {
 
 //Get возвращает страничку с созданием поста (js-редактор)
 func (c *NewPostController) Get() {
-	c.TplName = "post.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "post.html"
+	c.Layout = "layout.html"
 }

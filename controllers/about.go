@@ -11,6 +11,6 @@ type AboutController struct {
 
 //Get возвращает страничку обо мне
 func (c *AboutController) Get() {
-	c.TplName = "about.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "about.html"
+	c.Layout = "layout.html"
 }

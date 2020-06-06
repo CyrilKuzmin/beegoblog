@@ -30,6 +30,6 @@ func (c *SavePostController) Post() {
 		pd.InsertOne(post.NewPost(utils.GenerateUUID(), title, content, verifyPolicy))
 	}
 	c.Redirect("/blog", 302)
-	c.TplName = "post.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "post.html"
+	c.Layout = "layout.html"
 }

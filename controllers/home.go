@@ -18,6 +18,6 @@ func unescape(x string) interface{} {
 
 //Get возвращает домашнюю страницу
 func (c *HomeController) Get() {
-	c.TplName = "home.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "home.html"
+	c.Layout = "layout.html"
 }

@@ -14,6 +14,6 @@ type EditController struct {
 func (c *EditController) Get() {
 	post := postdocuments.NewPostDocuments().SelectByID(c.GetString("id"))
 	c.Data["Post"] = &post
-	c.TplName = "post.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "post.html"
+	c.Layout = "layout.html"
 }

@@ -13,6 +13,6 @@ type BlogController struct {
 //Get возвращает страничку блога
 func (c *BlogController) Get() {
 	c.Data["Posts"] = postdocuments.NewPostDocuments().SelectAll()
-	c.TplName = "blog.tpl"
-	c.Layout = "layout.tpl"
+	c.TplName = "blog.html"
+	c.Layout = "layout.html"
 }
