@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>Cyril's GoBlog</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="/"><img src="static/img/gologo.png"  style="width:128px;height:50px;" alt="Logo XYZ x 50 px"> </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">О сайте</a></li>
+        <li><a href="/blog">Блог</a></li>
+        <li><a href="/post">Новый пост</a></li>
+        <li><a href="/about">Обо мне</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{{ template "leftside" }}
+
+{{.LayoutContent}}
+
+{{ template "rightside" }}
+
+<footer class="footer">
+  <p>Cyril's GoBlog --- email:<a href="mailto:xxlaefxx@gmail.com">xxlaefxx@gmail.com</a></p>
+</footer>
+
+</body>
+</html>
