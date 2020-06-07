@@ -36,7 +36,10 @@ confirm_password.onkeyup = validatePassword;
     <div class="col-sm-8 text-left"> 
       <h1>Регистрация нового пользователя</h1>
       <hr>
-      <form role="form" method="POST" action="/register">
+      {{ if .Message }}
+        <label>{{ .Message.Label}} </label><a href={{ .Message.LinkPath }}>{{ .Message.LinkText }}</a>
+      {{ else }}
+        <form role="form" method="POST" action="/register">
       <div class="col-xs-4">
             {{ if .Error }}
                 <label>{{ .Error }}</label>
@@ -67,6 +70,7 @@ confirm_password.onkeyup = validatePassword;
           </div>
         </div>
       </form>
+      {{ end }}
       </div>
     </div>
   </div>

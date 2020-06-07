@@ -12,8 +12,8 @@ type Post struct {
 	PostID      string `bson:"_id,omitempty"`
 	Title       string `bson:"title,omitempty"`
 	ContentHTML string `bson:"contenthtml"`
-	CreateTime  string `bson:"createtime,omitempty"`
-	ModifyTime  string `bson:"modifytime,omitempty"`
+	CreatedAt   string `bson:"createdat,omitempty"`
+	ModifiedAt  string `bson:"modifiedat,omitempty"`
 }
 
 //NewPost создает пост и возвращает указатель на него
@@ -26,7 +26,7 @@ func NewPost(id, title, content string, policy *bluemonday.Policy) *Post {
 func EditPost(p *Post, title, content string, policy *bluemonday.Policy) *Post {
 	p.Title = title
 	p.ContentHTML = policy.Sanitize(content)
-	p.ModifyTime = time.Now().Local().Format("01-02-2006 15:04:05")
+	p.ModifiedAt = time.Now().Local().Format("01-02-2006 15:04:05")
 	return p
 }
 

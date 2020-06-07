@@ -3,7 +3,7 @@
     {{ range .Posts }}
     <div class="col-sm-8 text-left"> 
       <h1><a href="/edit?id={{.PostID}}">{{ .Title }}</a></h1>
-      <p class="post_time">Создан: {{ .CreateTime }}. Последнее изменение: {{ .ModifyTime }}</p>
+      <p class="post_time">Создан: {{ .CreatedAt }}. Последнее изменение: {{ .ModifiedAt }}</p>
       {{ .ContentHTML | str2html }}
       <hr>
     </div>
