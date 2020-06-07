@@ -34,13 +34,16 @@
     </div>
   </div>
 </nav>
-
-{{ template "leftside" }}
-
-{{.LayoutContent}}
-
-{{ template "rightside" }}
-
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+    {{ template "leftside" }}
+    </div>
+    <div class="col-12">
+    {{.LayoutContent}}
+    </div>
+  </div>
+</div>
 <footer class="footer">
   <p>Cyril's GoBlog --- email:<a href="mailto:xxlaefxx@gmail.com">xxlaefxx@gmail.com</a></p>
 </footer>

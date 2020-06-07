@@ -20,23 +20,24 @@ type PostsDB struct {
 }
 
 //NewPostsDB создает объект для взаимодействия с MongoDB
-func NewPostsDB() *PostsDB {
+func NewPostsDB() (*PostsDB, error) {
+	var err error
 	var mongoURI = "mongodb://localhost:27017"
 	var dbName = "blog"
 	var collectionName = "posts"
 	var bgCtx = context.TODO()
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURI))
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	ctx, _ := context.WithTimeout(bgCtx, 20*time.Second)
 	err = client.Connect(ctx)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	db := client.Database(dbName)
 	collection := db.Collection(collectionName)
-	return &PostsDB{client, db, collection, bgCtx}
+	return &PostsDB{client, db, collection, bgCtx}, err
 }
 
 //InsertOne инсертит 1 пост в коллекцию

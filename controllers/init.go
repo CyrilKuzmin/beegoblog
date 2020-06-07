@@ -1,25 +1,25 @@
 package controllers
 
 import (
-	"fmt"
-	"os/user"
-
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
 	"github.com/xxlaefxx/beegoblog/models/postsdb"
+	"github.com/xxlaefxx/beegoblog/models/user"
 )
 
 var pdb *postsdb.PostsDB
 var psqlOrm orm.Ormer
 
 func init() {
-	pdb = postsdb.NewPostsDB()
+	var err error
+	pdb, err = postsdb.NewPostsDB()
+	if err != nil {
+		logs.Critical("Cannot create Mongo client: %v", err)
+	}
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 	orm.RegisterDataBase("default", "postgres", "user=root password=root host=127.0.0.1 port=5432 dbname=blog sslmode=disable")
-	err := orm.RunSyncdb("default", false, true)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Creating user model for ORM", new(user.User))
+	_ = orm.RunSyncdb("default", false, true)
+	logs.Info("Creating user model for ORM", new(user.User))
 	psqlOrm = orm.NewOrm()
 	psqlOrm.Using("default")
 }
