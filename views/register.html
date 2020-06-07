@@ -1,0 +1,73 @@
+<style>
+   .userField, .passField, .emailField {
+    background: url(/static/img/user.png) no-repeat 5px 50%; /* Картинка пользователя */
+    padding-left: 30px; /* Расстояние от левого края */
+   }
+   .passField {
+    background: url(/static/img/lock.png) no-repeat 5px 50%; /* Картинка для поля с паролем */
+   }
+   .emailField {
+    background: url(/static/img/mail.png) no-repeat 5px 50%; /* Картинка для поля с паролем */
+   }
+   .fieldInfo {
+    color: gray;
+    font-weight: normal;
+    text-align: left;
+    font-size: small;
+  }
+</style>
+
+<script>
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Пароли не совпадают");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-8 text-left"> 
+      <h1>Регистрация нового пользователя</h1>
+      <hr>
+      <form role="form" method="POST" action="/register">
+      <div class="col-xs-4">
+            {{ if .Error }}
+                <label>{{ .Error }}</label>
+            {{ end }}
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" class="form-control userField" id="username" name="username" placeholder="Имя пользователя" required
+                    pattern="[a-zA-Z0-9]+" minlength="4" maxlength="20"/>
+                <label class="fieldInfo" >Может состоять из латинских букв и цифр, от 4 до 20 символов</label>
+            </div>
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" class="form-control emailField" id="email" name="email" placeholder="username@example.com" required/>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" class="form-control passField" id="password" name="password" 
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,20}$" minlength="8" maxlength="20" placeholder="От 8 до 20 символов" required/>
+                <label class="fieldInfo" >Может состоять из латинских букв, цифр и символов: @ $ ! % * ? &</label>
+            </div>
+            <div class="form-group">
+                <label>Повторите пароль</label>
+                <input type="password" class="form-control passField" id="confirm_password" name="confirm_password" 
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,20}$" minlength="8" maxlength="20" placeholder="Подтверждение" required/>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-success">Отправить</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

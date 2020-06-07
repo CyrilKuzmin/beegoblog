@@ -9,7 +9,7 @@ import (
 
 //Post описывает пост
 type Post struct {
-	ID          string `bson:"_id,omitempty"`
+	PostID      string `bson:"_id,omitempty"`
 	Title       string `bson:"title,omitempty"`
 	ContentHTML string `bson:"contenthtml"`
 	CreateTime  string `bson:"createtime,omitempty"`
@@ -18,7 +18,6 @@ type Post struct {
 
 //NewPost создает пост и возвращает указатель на него
 func NewPost(id, title, content string, policy *bluemonday.Policy) *Post {
-	println("create new post ", content)
 	dt := time.Now().Local().Format("01-02-2006 15:04:05")
 	return &Post{id, title, policy.Sanitize(content), dt, dt}
 }
@@ -32,5 +31,5 @@ func EditPost(p *Post, title, content string, policy *bluemonday.Policy) *Post {
 }
 
 func (p *Post) String() string {
-	return fmt.Sprintf("PostID %v %v : %v", p.ID, p.Title, p.ContentHTML[0:40])
+	return fmt.Sprintf("PostID %v %v : %v", p.PostID, p.Title, p.ContentHTML[0:40])
 }

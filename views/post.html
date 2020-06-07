@@ -13,7 +13,7 @@ tinymce.init({
       <hr>
       <form role="form" method="POST" action="/savepost">
       <div class="col-xs-8">
-            <input type="hidden" name="id" value="{{.Post.ID}}"/>
+            <input type="hidden" name="id" value="{{.Post.PostID}}"/>
             <div class="form-group">
                 <label>Заголовок</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{.Post.Title}}" required/>
@@ -24,12 +24,12 @@ tinymce.init({
             </div>
             <div>
               <button type="submit" class="btn btn-success">Отправить</button>
-              {{ if .Post.ID }}
+              {{ if .Post.PostID }}
               <button type="reset" class="btn btn-default">Отменить изменения</button>
               {{ end }}
         
-          {{ if .Post.ID }}
-          <a href="/delete?id={{.Post.ID}}" class="btn btn-danger"  onclick="return confirmRemoval();">Удалить</a>
+          {{ if .Post.PostID }}
+          <a href="/delete?id={{.Post.PostID}}" class="btn btn-danger"  onclick="return confirmRemoval();">Удалить</a>
           {{ end }}
           </div>
         </div>

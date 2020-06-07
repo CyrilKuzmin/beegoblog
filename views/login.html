@@ -1,0 +1,46 @@
+<style>
+   .userField, .passField, .emailField {
+    background: url(/static/img/user.png) no-repeat 5px 50%; /* Картинка пользователя */
+    padding-left: 30px; /* Расстояние от левого края */
+   }
+   .passField {
+    background: url(/static/img/lock.png) no-repeat 5px 50%; /* Картинка для поля с паролем */
+   }
+   .grid-parent {
+   display: grid;
+   grid-template-columns: 2fr 1fr;
+   grid-gap: 10px;
+   }
+</style>
+
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-8 text-left"> 
+      <h1>Вход</h1>
+      <hr>
+      <form role="form" method="POST" action="/login">
+      <div class="col-xs-4">
+            {{ if .Error }}
+                <label>{{ .Error }}</label>
+            {{ end }}
+            <div class="form-group">
+                <label>Имя пользователя</label>
+                <input type="text" class="form-control userField" id="username" name="username" placeholder="Имя пользователя" required
+                    pattern="[a-zA-Z0-9]+" minlength="4" maxlength="20"/>
+            </div>
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" class="form-control passField" id="password" name="password" 
+                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,20}$" minlength="8" maxlength="20" placeholder="От 8 до 20 символов" required/>
+            </div>
+            <div class='parent grid-parent'>
+              <div align="left"><button type="submit" class="btn btn-success" style="width: 100%">Войти</button></div>
+              <div align="right"><a href="/register" class="btn btn-default" style="width: 100%">Регистрация</a></div>
+            </div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

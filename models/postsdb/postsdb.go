@@ -1,4 +1,4 @@
-package postdocuments
+package postsdb
 
 import (
 	"context"
@@ -11,50 +11,51 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-//PostDocuments объект для взаимодействия с MongoDB
-type PostDocuments struct {
+//PostsDB объект для взаимодействия с MongoDB
+type PostsDB struct {
 	client     *mongo.Client
 	db         *mongo.Database
 	collection *mongo.Collection
+	bgCtx      context.Context
 }
 
-//NewPostDocuments создает объект для взаимодействия с MongoDB
-func NewPostDocuments() *PostDocuments {
+//NewPostsDB создает объект для взаимодействия с MongoDB
+func NewPostsDB() *PostsDB {
 	var mongoURI = "mongodb://localhost:27017"
 	var dbName = "blog"
 	var collectionName = "posts"
+	var bgCtx = context.TODO()
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURI))
 	if err != nil {
 		panic(err)
 	}
-	ctx, mongoConnectCancel := context.WithTimeout(context.Background(), 20*time.Second)
-	defer mongoConnectCancel()
+	ctx, _ := context.WithTimeout(bgCtx, 20*time.Second)
 	err = client.Connect(ctx)
 	if err != nil {
 		panic(err)
 	}
 	db := client.Database(dbName)
 	collection := db.Collection(collectionName)
-	return &PostDocuments{client, db, collection}
+	return &PostsDB{client, db, collection, bgCtx}
 }
 
 //InsertOne инсертит 1 пост в коллекцию
-func (pD PostDocuments) InsertOne(post *post.Post) {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+func (pD PostsDB) InsertOne(post *post.Post) {
+	ctx, cancel := context.WithTimeout(pD.bgCtx, 20*time.Second)
 	defer cancel()
 	pD.collection.InsertOne(ctx, post)
 }
 
 //UpdateOne инсертит 1 пост в коллекцию
-func (pD PostDocuments) UpdateOne(post *post.Post) {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+func (pD PostsDB) UpdateOne(post *post.Post) {
+	ctx, cancel := context.WithTimeout(pD.bgCtx, 20*time.Second)
 	defer cancel()
-	pD.collection.FindOneAndReplace(ctx, bson.M{"_id": bson.M{"$eq": post.ID}}, post)
+	pD.collection.FindOneAndReplace(ctx, bson.M{"_id": bson.M{"$eq": post.PostID}}, post)
 }
 
 //DeleteByID удаляет 1 пост в коллекцию
-func (pD PostDocuments) DeleteByID(id string) {
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+func (pD PostsDB) DeleteByID(id string) {
+	ctx, cancel := context.WithTimeout(pD.bgCtx, 20*time.Second)
 	defer cancel()
 	_, err := pD.collection.DeleteOne(ctx, bson.M{"_id": id})
 	if err != nil {
@@ -63,9 +64,9 @@ func (pD PostDocuments) DeleteByID(id string) {
 }
 
 //SelectAll возвращает все посты
-func (pD PostDocuments) SelectAll() *[]post.Post {
+func (pD PostsDB) SelectAll() *[]post.Post {
 	var posts []post.Post
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(pD.bgCtx, 20*time.Second)
 	defer cancel()
 	postsCursor, err := pD.collection.Find(ctx, bson.D{})
 	if err != nil {
@@ -83,9 +84,9 @@ func (pD PostDocuments) SelectAll() *[]post.Post {
 }
 
 //SelectByQuery возвращает документы по данному запросу (query)
-func (pD PostDocuments) SelectByQuery(query bson.M) *[]post.Post {
+func (pD PostsDB) SelectByQuery(query bson.M) *[]post.Post {
 	var posts []post.Post
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(pD.bgCtx, 20*time.Second)
 	defer cancel()
 	postsCursor, err := pD.collection.Find(ctx, query)
 	if err != nil {
@@ -103,9 +104,9 @@ func (pD PostDocuments) SelectByQuery(query bson.M) *[]post.Post {
 }
 
 //SelectByID возвращает один пост по его ID
-func (pD PostDocuments) SelectByID(id string) *post.Post {
+func (pD PostsDB) SelectByID(id string) *post.Post {
 	var post post.Post
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(pD.bgCtx, 20*time.Second)
 	defer cancel()
 	postsCursor, err := pD.collection.Find(ctx, bson.M{"_id": id})
 	if err != nil {
