@@ -28,11 +28,15 @@
             <ul class="nav navbar-nav">
               <li><a href="/">О сайте</a></li>
               <li><a href="/blog">Блог</a></li>
-              <li><a href="/post">Новый пост</a></li>
+              {{if .UserName}} <li><a href="/post">Новый пост</a></li> {{end}}
               <li><a href="/about">Обо мне</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              {{if .UserName}}
+              <li><a href="/lk"><span class="glyphicon glyphicon-log-in"></span> {{ .UserName}}</a></li>
+              {{else}}
               <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+              {{end}}
             </ul>
           </div>
         </div>

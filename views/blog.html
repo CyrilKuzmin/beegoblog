@@ -1,12 +1,24 @@
 <div class="container-fluid text-center">    
   <div class="row content">
+  {{if .UserName }}
     {{ range .Posts }}
     <div class="col-lg-8 text-left"> 
-      <h1><a href="/edit?id={{.PostID}}">{{ .Title }}</a></h1>
+      <h1>{{ .Title }}</h1>
+      <a href="/edit?id={{.PostID}}" >Изменить</a>
       <p class="post_time">Создан: {{ .CreatedAt }}. Последнее изменение: {{ .ModifiedAt }}</p>
       {{ .ContentHTML | str2html }}
       <hr>
     </div>
     {{ end }}
+  {{else}}
+    {{ range .Posts }}
+    <div class="col-lg-8 text-left"> 
+      <h1>{{ .Title }}</h1>
+      <p class="post_time">Создан: {{ .CreatedAt }}. Последнее изменение: {{ .ModifiedAt }}</p>
+      {{ .ContentHTML | str2html }}
+      <hr>
+    </div>
+    {{ end }}
+  {{end}}
   </div>
 </div>

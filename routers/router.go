@@ -16,4 +16,6 @@ func init() {
 	beego.Router("/edit", &controllers.EditController{})
 	beego.Router("/delete", &controllers.DeleteController{})
 	beego.Router("/savepost", &controllers.SavePostController{})
+	beego.Router("/lk", &controllers.LKController{})
+	beego.Router("/logout", &controllers.LogoutController{})
 }

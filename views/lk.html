@@ -1,0 +1,16 @@
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-8 text-left"> 
+      <h1>Добро пожаловать, {{ if .UserName}}{{.UserName}}{{end}}</h1>
+      <hr>
+      <p>Пустой личный кабинет {{if .UserName}} {{.UserName}} {{end}}'a</p>
+      <form role="form" method="POST" action="/logout">
+      <div class="col-sm-8">
+            <input type="hidden" name="user" value="{{.UserName}}"/>
+            <button type="submit" class="btn btn-danger">Выйти</button>
+      </div>
+      </form>
+      <hr>
+    </div>
+  </div>
+</div>

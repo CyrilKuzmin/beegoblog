@@ -99,6 +99,13 @@ func runChecks(username, email, password string) *RegistrationMessage {
 
 //Get возвращает страничку регистрации
 func (c *RegisterController) Get() {
+	sess := c.GetSession("session")
+	if sess != nil {
+		m := sess.((map[string]interface{}))
+		c.Data["UserName"] = m["username"]
+	} else {
+		c.Abort("403")
+	}
 	c.TplName = "register.html"
 	c.Layout = "layout.html"
 }

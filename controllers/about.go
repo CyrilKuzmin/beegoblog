@@ -11,6 +11,11 @@ type AboutController struct {
 
 //Get возвращает страничку обо мне
 func (c *AboutController) Get() {
+	sess := c.GetSession("session")
+	if sess != nil {
+		m := sess.((map[string]interface{}))
+		c.Data["UserName"] = m["username"]
+	}
 	c.TplName = "about.html"
 	c.Layout = "layout.html"
 }

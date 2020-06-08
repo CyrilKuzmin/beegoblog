@@ -13,6 +13,14 @@ type SavePostController struct {
 
 //Post сохраняет пост
 func (c *SavePostController) Post() {
+	//Только зарегистрированные могут что-то постить
+	sess := c.GetSession("session")
+	if sess != nil {
+		m := sess.((map[string]interface{}))
+		c.Data["UserName"] = m["username"]
+	} else {
+		c.Abort("403")
+	}
 	id := c.Ctx.Request.FormValue("id")
 	title := c.Ctx.Request.FormValue("title")
 	content := c.Ctx.Request.FormValue("editor")
