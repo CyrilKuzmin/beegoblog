@@ -11,11 +11,7 @@ type LKController struct {
 
 //Get возвращает страничку личного кабинета
 func (c *LKController) Get() {
-	sess := c.GetSession("session")
-	if sess != nil {
-		m := sess.((map[string]interface{}))
-		c.Data["UserName"] = m["username"]
-	} else {
+	if c.Data["UserName"] == nil {
 		c.Abort("401")
 	}
 	c.TplName = "lk.html"
