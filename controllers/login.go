@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"fmt"
-
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 
@@ -54,8 +52,6 @@ func (c *LoginController) Post() {
 	username := isLoginDataValid(email, password)
 	if username != "" {
 		c.SetSession("session", makeSession(username))
-		newData := c.GetSession("session")
-		fmt.Println("NEW SESSION DATA: ", newData)
 		c.Redirect("/blog", 302)
 	} else {
 		c.Data["Message"] = "Неверный email или пароль"

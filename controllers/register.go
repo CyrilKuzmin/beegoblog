@@ -105,13 +105,11 @@ func (c *RegisterController) Get() {
 
 //Post проверяет данные регистрации и регистрирует пользователя
 func (c *RegisterController) Post() {
-	fmt.Println(everythingIsOk)
 	username := c.Ctx.Request.FormValue("username")
 	email := c.Ctx.Request.FormValue("email")
 	password := c.Ctx.Request.FormValue("password")
 	//Проверки
 	checksResult := runChecks(username, email, password)
-	fmt.Println(checksResult)
 	c.Data["Message"] = checksResult
 	if checksResult == everythingIsOk {
 		_, err := psqlOrm.Insert(user.NewUser(utils.GenerateUUID(), username, email, password))
