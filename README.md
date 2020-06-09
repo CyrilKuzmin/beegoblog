@@ -4,8 +4,11 @@
 mkdir /opt/psqldata
 mkdir /opt/mongodata
 ```
+<<<<<<< HEAD
 Запускаем БД
 ```
+=======
+>>>>>>> 62631564523545336278e05ca7f317f8277a117a
 docker run -d \
     --name postgres \
     -e POSTGRES_USER=root \
@@ -14,7 +17,8 @@ docker run -d \
     -v /opt/psqldata:/var/lib/postgresql/data \
     -p 172.16.1.1:5432:5432 \
     postgres
-    
+```
+```
 docker run -d \
     --name mongo \
     -v /opt/mongodata:/data/configdb \
@@ -45,5 +49,9 @@ blog=# \dt
  public | session | table | root
  public | user    | table | root
 (2 rows)
+<<<<<<< HEAD
 ```
 Можно тестить
+=======
+```
+>>>>>>> 62631564523545336278e05ca7f317f8277a117a

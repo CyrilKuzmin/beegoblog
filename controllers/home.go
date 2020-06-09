@@ -18,11 +18,6 @@ func unescape(x string) interface{} {
 
 //Get возвращает домашнюю страницу
 func (c *HomeController) Get() {
-	sess := c.GetSession("session")
-	if sess != nil {
-		m := sess.((map[string]interface{}))
-		c.Data["UserName"] = m["username"]
-	}
 	c.TplName = "home.html"
 	c.Layout = "layout.html"
 }

@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"github.com/xxlaefxx/beegoblog/controllers"
+	"github.com/xxlaefxx/beegoblog/middleware"
 )
 
 func init() {
@@ -18,4 +19,6 @@ func init() {
 	beego.Router("/savepost", &controllers.SavePostController{})
 	beego.Router("/lk", &controllers.LKController{})
 	beego.Router("/logout", &controllers.LogoutController{})
+	//middleware
+	beego.InsertFilter("/*", beego.BeforeExec, middleware.CheckSession)
 }

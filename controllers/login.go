@@ -16,11 +16,6 @@ type LoginController struct {
 
 //Get возвращает страничку входа
 func (c *LoginController) Get() {
-	sess := c.GetSession("session")
-	if sess != nil {
-		m := sess.((map[string]interface{}))
-		c.Data["UserName"] = m["username"]
-	}
 	c.TplName = "login.html"
 	c.Layout = "layout.html"
 }
