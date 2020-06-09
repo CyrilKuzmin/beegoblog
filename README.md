@@ -18,7 +18,7 @@ docker run -d \
 ```
 docker run -d \
     --name mongo \
-    -v /opt/mongodata:/data/configdb \
+    -v /opt/mongodata:/data/db \
     -p 172.16.1.1:27017:27017 \
     mongo
 ```
