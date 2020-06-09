@@ -103,8 +103,6 @@ func (c *RegisterController) Get() {
 	if sess != nil {
 		m := sess.((map[string]interface{}))
 		c.Data["UserName"] = m["username"]
-	} else {
-		c.Abort("403")
 	}
 	c.TplName = "register.html"
 	c.Layout = "layout.html"
