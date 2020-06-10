@@ -1,59 +1,55 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <title>Cyril's GoBlog</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="static/css/bootstrap.min.css">
   <link rel="stylesheet" href="static/css/custom.css">
-  <script src="static/js/jquery.min.js"></script>
-  <script src="static/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand" href="/"><img src="static/img/textlogo.png"  style="width:238px;height:50px;" alt="Logo XYZ x 50 px"> </a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li><a href="/">О сайте</a></li>
-              <li><a href="/blog">Блог</a></li>
-              {{if .UserName}} <li><a href="/post">Новый пост</a></li> {{end}}
-              <li><a href="/about">Обо мне</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              {{if .UserName}}
-              <li><a href="/lk"><span class="glyphicon glyphicon-log-in"></span> {{ .UserName}}</a></li>
-              {{else}}
-              <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
-              {{end}}
-            </ul>
-          </div>
-        </div>
-      </nav>
+  <nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+        <a class="navbar-brand" href="/"><img src="static/img/textlogo.png"  style="width:238px;height:50px;" alt="Logo XYZ x 50 px"> </a>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-6">
-    {{ template "leftside" }}
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">О сайте</a></li>
+        <li><a href="/blog">Блог</a></li>
+        {{if .UserName}} <li><a href="/post">Новый пост</a></li> {{end}}
+        <li><a href="/about">Обо мне</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {{if .UserName}}
+        <li><a href="/lk"><span class="glyphicon glyphicon-log-in"></span> {{ .UserName}}</a></li>
+        {{else}}
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+        {{end}}
+      </ul>
     </div>
-    <div class="col-12">
-    {{.LayoutContent}}
-    </div>
-  </div>
-</div>
-<footer class="footer">
-  <p>Cyril's GoBlog --- email:<a href="mailto:xxlaefxx@gmail.com">xxlaefxx@gmail.com</a></p>
-</footer>
+  </nav>
 
+  <script src="static/js/popper.min.js"></script>
+  <script src="static/js/jquery.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+      {{.LayoutContent}}
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Cyril's GoBlog --- email:<a href="mailto:xxlaefxx@gmail.com">xxlaefxx@gmail.com</a></p>
+  </footer>
 </body>
 </html>

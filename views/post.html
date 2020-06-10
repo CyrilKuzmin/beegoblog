@@ -1,4 +1,5 @@
 <script type="text/javascript" src="/static/js/confirm.js"></script>
+<!--
 <script type="text/javascript" src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
 <script type="application/x-javascript">
 tinymce.init({
@@ -6,13 +7,18 @@ tinymce.init({
   plugins: "image code"
 });
 </script>
+-->
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-8 text-left"> 
+    <div class="col-sm-12 text-left"> 
       <h1>Добавление нового поста</h1>
       <hr>
       <form role="form" method="POST" action="/savepost">
-      <div class="col-sm-8">
+      <div class="col-sm-12">
             <input type="hidden" name="id" value="{{.Post.PostID}}"/>
             <div class="form-group">
                 <label>Заголовок</label>
@@ -20,21 +26,31 @@ tinymce.init({
             </div>
             <div class="form-group">
                 <label>Содержимое</label>
-                <textarea class="form-control" id="TypeHere" name="editor" rows="10" data-ng-model="text">{{.Post.ContentHTML}}</textarea>
+                <textarea class="form-control" id="editor" name="editor"  rows="10"></textarea>
+                <script>
+                  $(document).ready(function() {
+                  $('#editor').summernote({
+                    height: 300,
+                    focus: true  
+                  });
+                  });
+                </script>
+                <!-- <textarea class="form-control" id="TypeHere" name="editor" rows="10" data-ng-model="text">{{.Post.ContentHTML}}</textarea> -->
             </div>
             <div>
               <button type="submit" class="btn btn-success">Отправить</button>
               {{ if .Post.PostID }}
               <button type="reset" class="btn btn-default">Отменить изменения</button>
               {{ end }}
-        
-          {{ if .Post.PostID }}
-          <a href="/delete?id={{.Post.PostID}}" class="btn btn-danger"  onclick="return confirmRemoval();">Удалить</a>
-          {{ end }}
-          </div>
+              {{ if .Post.PostID }}
+              <a href="/delete?id={{.Post.PostID}}" class="btn btn-danger"  onclick="return confirmRemoval();">Удалить</a>
+              {{ end }}
+            </div>
         </div>
       </form>
       </div>
     </div>
   </div>
 </div>
+
+                
