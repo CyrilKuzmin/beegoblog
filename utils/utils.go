@@ -48,7 +48,9 @@ func MDToHTML(md string) string {
 //MakeNewPolicy создает новую политику bluemonday для верификации пользовательских данных, полученных на метод /savepost
 func MakeNewPolicy() *bluemonday.Policy {
 	p := bluemonday.UGCPolicy()
-	p.AllowAttrs("style").OnElements("span", "p")
+	//p.AllowAttrs("style").OnElements("span", "p")
+	p.AllowAttrs("style").Globally()
 	p.RequireParseableURLs(false)
+	p.AllowElements("figure")
 	return p
 }

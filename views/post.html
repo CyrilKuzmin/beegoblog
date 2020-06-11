@@ -1,16 +1,4 @@
-<script type="text/javascript" src="/static/js/confirm.js"></script>
-<!--
-<script type="text/javascript" src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
-<script type="application/x-javascript">
-tinymce.init({
-  selector:'#TypeHere',
-  plugins: "image code"
-});
-</script>
--->
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/ckeditor.css">
 
 <div class="container-fluid text-center">    
   <div class="row content">
@@ -25,26 +13,16 @@ tinymce.init({
                 <input type="text" class="form-control" id="title" name="title" value="{{.Post.Title}}" required/>
             </div>
             <div class="form-group">
-                <label>Содержимое</label>
-                <textarea class="form-control" id="editor" name="editor"  rows="10"></textarea>
-                <script>
-                  $(document).ready(function() {
-                  $('#editor').summernote({
-                    height: 300,
-                    focus: true  
-                  });
-                  });
-                </script>
-                <!-- <textarea class="form-control" id="TypeHere" name="editor" rows="10" data-ng-model="text">{{.Post.ContentHTML}}</textarea> -->
-            </div>
-            <div>
               <button type="submit" class="btn btn-success">Отправить</button>
               {{ if .Post.PostID }}
-              <button type="reset" class="btn btn-default">Отменить изменения</button>
               {{ end }}
               {{ if .Post.PostID }}
               <a href="/delete?id={{.Post.PostID}}" class="btn btn-danger"  onclick="return confirmRemoval();">Удалить</a>
               {{ end }}
+            </div>
+            <div class="form-group">
+                <label>Содержимое</label>
+                <textarea class="form-control" id="editor" name="editor"  rows="10" >{{.Post.ContentHTML}}</textarea>
             </div>
         </div>
       </form>
@@ -52,5 +30,72 @@ tinymce.init({
     </div>
   </div>
 </div>
+<script type="text/javascript" src="/static/js/confirm.js"></script>
+<script type="text/javascript" src="/static/js/ckeditor.js"></script>
+<script>ClassicEditor
+			.create( document.querySelector( '#editor' ), {
+				
+				toolbar: {
+					items: [
+						'heading',
+						'|',
+						'fontSize',
+						'bold',
+						'fontColor',
+						'|',
+						'fontBackgroundColor',
+						'italic',
+						'underline',
+						'strikethrough',
+						'code',
+						'codeBlock',
+						'|',
+						'alignment',
+						'indent',
+						'outdent',
+						'bulletedList',
+						'numberedList',
+						'|',
+						'link',
+						'imageUpload',
+						'blockQuote',
+						'insertTable',
+						'mediaEmbed',
+						'horizontalLine',
+						'|',
+						'undo',
+						'redo'
+					]
+				},
+				language: 'ru',
+				image: {
+					toolbar: [
+						'imageTextAlternative',
+						'imageStyle:full',
+						'imageStyle:side'
+					]
+				},
+				table: {
+					contentToolbar: [
+						'tableColumn',
+						'tableRow',
+						'mergeTableCells',
+						'tableCellProperties',
+						'tableProperties'
+					]
+				},
+				licenseKey: '',
+				
+			} )
+			.then( editor => {
+				window.editor = editor;
 
+			} )
+			.catch( error => {
+				console.error( 'Oops, something gone wrong!' );
+				console.error( 'Please, report the following error in the https://github.com/ckeditor/ckeditor5 with the build id and the error stack trace:' );
+				console.warn( 'Build id: g131lumz2fou-rlwgf3su13rt' );
+				console.error( error );
+			} );
+</script>
                 

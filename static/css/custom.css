@@ -54,3 +54,15 @@
     text-align: left;
     font-size: small;
   }
+
+  th {
+    background-color: rgb(38, 87, 39);
+    color: white;
+  }
+  table {
+    border: 2px solid black;
+  }
+  th, td {
+    padding: 3px;
+    text-align: left;
+  }
