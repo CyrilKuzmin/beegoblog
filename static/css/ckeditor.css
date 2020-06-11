@@ -2,17 +2,11 @@
  * @license Copyright (c) 2014-2020, CKSource - Frederico Knabben. All rights reserved.
  * This file is licensed under the terms of the MIT License (see LICENSE.md).
  */
-
  :root {
 	--ck-sample-base-spacing: 2em;
 	/*--ck-sample-color-white: #fff;*/
-	--ck-sample-color-green: #279863;
-	--ck-sample-color-blue: #1a9aef;
-	--ck-sample-container-width: 1285px;
-	--ck-sample-sidebar-width: 350px;
 	--ck-sample-editor-min-height: 400px;
 }
-
 /* --------- EDITOR STYLES  ---------------------------------------------------------------------------------------- */
 
 .editor__editable,
@@ -425,12 +419,6 @@ main .message h2 {
 	font-size: .8rem;
 }
 
-footer {
-	margin: calc(2*var(--ck-sample-base-spacing)) var(--ck-sample-base-spacing);
-	font-size: .8em;
-	text-align: center;
-	color: rgba(0,0,0,.4);
-}
 
 /* --------- RWD --------------------------------------------------------------------------------------------------- */
 @media screen and ( max-width: 800px ) {
