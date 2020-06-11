@@ -49,5 +49,6 @@ func MDToHTML(md string) string {
 func MakeNewPolicy() *bluemonday.Policy {
 	p := bluemonday.UGCPolicy()
 	p.AllowAttrs("style").OnElements("span", "p")
+	p.RequireParseableURLs(false)
 	return p
 }
