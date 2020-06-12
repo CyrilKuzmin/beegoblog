@@ -11,6 +11,10 @@ type DeletePostController struct {
 
 //Get запрос удаляет пост
 func (c *DeletePostController) Get() {
+	//Только зарегистрированные могут что-то удалить
+	if c.Data["UserName"] == nil {
+		c.Abort("403")
+	}
 	post := pdb.SelectByID(c.GetString("id"))
 	if (c.Data["isAdmin"] == false) && (c.Data["UserName"] != post.Author) {
 		c.Abort("403")
