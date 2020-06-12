@@ -6,7 +6,6 @@ import (
 	"image"
 	"image/jpeg"
 	"image/png"
-	"log"
 	"os"
 	"strings"
 
@@ -18,6 +17,33 @@ import (
 //SavePostController сохраняет пост
 type SavePostController struct {
 	beego.Controller
+}
+
+func base64ToFile(base64data, filepath, ext string) error {
+	var err error
+	reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(base64data))
+	img, _, err := image.Decode(reader)
+	if err != nil {
+		return err
+	}
+	f, err := os.Create(filepath)
+	defer f.Close()
+	if err != nil {
+		return err
+	}
+	//Пора работаем только с PNG и JPG
+	switch ext {
+	case "png":
+		err = png.Encode(f, img)
+	case "jpeg":
+		err = jpeg.Encode(f, img, &jpeg.Options{Quality: 100})
+	default:
+		err = fmt.Errorf("Cannot work with given file format: %v", ext)
+	}
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 //ImageProcessing выдергивает base64 из поста, сохраняет в /static/img и заменяет base64 на адрес
@@ -32,29 +58,11 @@ func ImageProcessing(content string) string {
 			base64data = strings.Split(elem, ",")[1]
 			pr := strings.Split(elem, ";")[0]
 			ext := strings.Split(pr, "/")[1]
-			reader := base64.NewDecoder(base64.StdEncoding, strings.NewReader(base64data))
-			img, _, err := image.Decode(reader)
-			if err != nil {
-				log.Fatal(err)
-			}
 			filepath := fmt.Sprintf("%v%v.%v", pathToImages, utils.GenerateUUID(), ext)
-			f, err := os.Create(filepath)
+			err := base64ToFile(base64data, filepath, ext)
 			if err != nil {
-				fmt.Println("Cannot open file", err)
-			}
-			defer f.Close()
-			//Пора работаем только с PNG и JPG
-			switch ext {
-			case "png":
-				err = png.Encode(f, img)
-			case "jpeg":
-				err = jpeg.Encode(f, img, &jpeg.Options{Quality: 100})
-			default:
-				fmt.Println("Cannot work with given file format:", ext)
-			}
-
-			if err != nil {
-				fmt.Println("Cannot save image to file", err)
+				fmt.Println(err)
+				continue
 			}
 			result = strings.ReplaceAll(result, elem, filepath)
 		}
@@ -77,6 +85,7 @@ func (c *SavePostController) Post() {
 		return
 	}
 	content = ImageProcessing(content)
+	fmt.Println("Контент до политик", content)
 	verifyPolicy := utils.MakeNewPolicy()
 	if id != "" {
 		pdb.UpdateOne(post.EditPost(pdb.SelectByID(id), title, content, verifyPolicy))

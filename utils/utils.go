@@ -52,5 +52,6 @@ func MakeNewPolicy() *bluemonday.Policy {
 	p.AllowAttrs("style").Globally()
 	p.RequireParseableURLs(false)
 	p.AllowElements("figure")
+	p.AllowAttrs("class").OnElements("figure")
 	return p
 }
