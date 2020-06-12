@@ -2,7 +2,9 @@
     <div class="row content">
       <div class="col-sm-12 text-left"> 
         <h1>{{ .Post.Title }}</h1>
+        {{ if .UserName }}
         {{ if or (eq .UserName .Post.Author) (eq .UserName "admin") }}<a href="/edit?id={{.Post.PostID}}" >Изменить</a>{{ end }}
+        {{ end }}
         <br>
         <p class="post_time">Автор: {{ .Post.Author }}. Создан: {{ .Post.CreatedAt }}. Последнее изменение: {{ .Post.ModifiedAt }}</p>
         <div class="col-sm-12">
