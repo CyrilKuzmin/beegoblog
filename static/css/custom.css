@@ -85,3 +85,7 @@
     padding: 2px;
     text-align: center;
   }
+
+  .image_resized {
+    max-width: 600px;
+  }

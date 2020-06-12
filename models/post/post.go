@@ -10,6 +10,7 @@ import (
 //Post описывает пост
 type Post struct {
 	PostID      string `bson:"_id,omitempty"`
+	Author		string `bson:"author,omitempty"`
 	Title       string `bson:"title,omitempty"`
 	ContentHTML string `bson:"contenthtml"`
 	CreatedAt   string `bson:"createdat,omitempty"`
@@ -17,9 +18,9 @@ type Post struct {
 }
 
 //NewPost создает пост и возвращает указатель на него
-func NewPost(id, title, content string, policy *bluemonday.Policy) *Post {
+func NewPost(id, author, title, content string, policy *bluemonday.Policy) *Post {
 	dt := time.Now().Local().Format("01-02-2006 15:04:05")
-	return &Post{id, title, policy.Sanitize(content), dt, dt}
+	return &Post{id, author, title, policy.Sanitize(content), dt, dt}
 }
 
 //EditPost редактируем пост

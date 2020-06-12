@@ -4,18 +4,17 @@ import (
 	"github.com/astaxie/beego"
 )
 
-//DeleteController удаляет пост
-type DeleteController struct {
+//DeletePostController удаляет пост
+type DeletePostController struct {
 	beego.Controller
 }
 
 //Get запрос удаляет пост
-func (c *DeleteController) Get() {
-	//Удалить может только админ (пока)
-	if c.Data["isAdmin"] == false {
+func (c *DeletePostController) Get() {
+	post := pdb.SelectByID(c.GetString("id"))
+	if (c.Data["isAdmin"] == false) && (c.Data["UserName"] != post.Author) {
 		c.Abort("403")
 	}
-	post := pdb.SelectByID(c.GetString("id"))
 	if post != nil {
 		pdb.DeleteByID(c.GetString("id"))
 	} else {

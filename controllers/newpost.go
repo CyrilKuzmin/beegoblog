@@ -15,6 +15,6 @@ func (c *NewPostController) Get() {
 	if c.Data["UserName"] == nil {
 		c.Abort("403")
 	}
-	c.TplName = "post.html"
+	c.TplName = "editor.html"
 	c.Layout = "layout.html"
 }

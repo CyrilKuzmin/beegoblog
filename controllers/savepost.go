@@ -90,9 +90,9 @@ func (c *SavePostController) Post() {
 	if id != "" {
 		pdb.UpdateOne(post.EditPost(pdb.SelectByID(id), title, content, verifyPolicy))
 	} else {
-		pdb.InsertOne(post.NewPost(utils.GenerateID(8), title, content, verifyPolicy))
+		pdb.InsertOne(post.NewPost(utils.GenerateID(8), c.Data["UserName"].(string), title, content, verifyPolicy))
 	}
 	c.Redirect("/blog", 302)
-	c.TplName = "post.html"
+	c.TplName = "editor.html"
 	c.Layout = "layout.html"
 }

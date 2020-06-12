@@ -17,6 +17,6 @@ func (c *EditController) Get() {
 	}
 	post := pdb.SelectByID(c.GetString("id"))
 	c.Data["Post"] = &post
-	c.TplName = "post.html"
+	c.TplName = "editor.html"
 	c.Layout = "layout.html"
 }
