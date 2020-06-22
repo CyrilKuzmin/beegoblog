@@ -20,9 +20,8 @@ type PostsDB struct {
 }
 
 //NewPostsDB создает объект для взаимодействия с MongoDB
-func NewPostsDB() (*PostsDB, error) {
+func NewPostsDB(mongoURI string) (*PostsDB, error) {
 	var err error
-	var mongoURI = "mongodb://localhost:27017"
 	var dbName = "blog"
 	var collectionName = "posts"
 	var bgCtx = context.TODO()
@@ -30,7 +29,8 @@ func NewPostsDB() (*PostsDB, error) {
 	if err != nil {
 		return nil, err
 	}
-	ctx, _ := context.WithTimeout(bgCtx, 20*time.Second)
+	ctx, cns := context.WithTimeout(bgCtx, 20*time.Second)
+	defer cns()
 	err = client.Connect(ctx)
 	if err != nil {
 		return nil, err

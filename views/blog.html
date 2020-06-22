@@ -2,9 +2,9 @@
   <div class="row content">
     {{ range .Posts }}
     <div class="col-lg-8 text-left"> 
-      <h1><a href="/edit?id={{.PostID}}">{{ .Title }}</a></h1>
-      <p class="post_time">Создан: {{ .CreatedAt }}. Последнее изменение: {{ .ModifiedAt }}</p>
-      {{ .ContentHTML | str2html }}
+      <h2><a href="/post?id={{.PostID}}">{{ .Title }}</a></h2>
+      <p class="post_time">Автор: {{ .Author }}. Создан: {{ .CreatedAt }}. Последнее изменение: {{ .ModifiedAt }}</p>
+      {{ .PreviewHTML | str2html }}
       <hr>
     </div>
     {{ end }}

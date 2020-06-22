@@ -11,6 +11,10 @@ type NewPostController struct {
 
 //Get возвращает страничку с созданием поста (js-редактор)
 func (c *NewPostController) Get() {
-	c.TplName = "post.html"
+	//Только зарегистрированные могут что-то постить
+	if c.Data["UserName"] == nil {
+		c.Abort("403")
+	}
+	c.TplName = "editor.html"
 	c.Layout = "layout.html"
 }

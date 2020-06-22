@@ -11,8 +11,12 @@ type EditController struct {
 
 //Get возвращает страничку редактирования поста
 func (c *EditController) Get() {
+	//Только зарегистрированные могут что-то постить
+	if c.Data["UserName"] == nil {
+		c.Abort("403")
+	}
 	post := pdb.SelectByID(c.GetString("id"))
 	c.Data["Post"] = &post
-	c.TplName = "post.html"
+	c.TplName = "editor.html"
 	c.Layout = "layout.html"
 }
